@@ -2,13 +2,13 @@ trigger:
 - master
 - 2.x
 
-# Build on Mojave and High Sierra
+# Build on Catalina and Mojave
 strategy:
   matrix:
+    catalina:
+      imageName: 'macOS-10.15'
     mojave:
       imageName: 'macOS-10.14'
-    highsierra:
-      imageName: 'macOS-10.13'
 
 pool:
   vmImage: $(imageName)
@@ -16,6 +16,10 @@ pool:
 steps:
 
 # Valet install command test cases
+- script: |
+    brew update
+    brew uninstall php
+  displayName: '[BREW] update and uninstall brew php'
 
 - script: |
     brew tap henkrehorst/php
